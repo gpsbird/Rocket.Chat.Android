@@ -1,5 +1,7 @@
 package chat.rocket.android.fragment.oauth;
 
+import android.webkit.WebView;
+
 import chat.rocket.core.models.LoginServiceConfiguration;
 import okhttp3.HttpUrl;
 
@@ -24,5 +26,16 @@ public class FacebookOAuthFragment extends AbstractOAuthFragment {
         .addQueryParameter("state", getStateString())
         .build()
         .toString();
+  }
+
+  @Override
+  protected boolean shouldOverride(WebView webview, String url) {
+    return true;
+  }
+
+  @Override
+  protected boolean onHandleCallback(WebView webview, String url) {
+    webview.loadUrl(url);
+    return true;
   }
 }
